@@ -460,13 +460,7 @@ app.get('/insighta.html', checkAuthenticated, (req, res) => {
 });
 
 // Redirect root to a new room
-app.get('/', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.sendFile(path.join(__dirname, 'views', 'insighta.html'));
-    } else {
-        res.redirect('/login');
-    }
-});
+
 
 app.post('/redirect', (req, res) => {
     res.redirect('/register');
