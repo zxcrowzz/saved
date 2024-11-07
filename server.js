@@ -106,19 +106,26 @@ io.on('connection',(socket)=>{
         // Broadcast the message to all connected clients
         socket.broadcast.emit('message1', messageData);
     });
-    socket.on('newOffer',newOffer=>{
-        offers.push({
-            offererUserName: userEmail,
-            offer: newOffer,
-            offerIceCandidates: [],
-            answererUserName: null,
-            answer: null,
-            answererIceCandidates: []
-        })
-        // console.log(newOffer.sdp.slice(50))
-        //send out to all connected sockets EXCEPT the caller
-        socket.broadcast.emit('newOfferAwaiting',offers.slice(-1))
-    })
+  socket.on('newOffer', ({ offer, targetEmail }) => {
+    // Save the offer in the offers array
+    offers.push({
+        offererUserName: userEmail,
+        offer: offer,
+        offerIceCandidates: [],
+        answererUserName: targetEmail,
+        answer: null,
+        answererIceCandidates: []
+    });
+
+    // Find the socket ID for the target email
+    const targetSocket = connectedSockets.find(client => client.userEmail === targetEmail);
+    
+    // If target socket found, send offer directly to that friend
+    if (targetSocket) {
+        io.to(targetSocket.socketId).emit('newOfferAwaiting', offers.slice(-1));
+    }
+});
+
 
     socket.on('newAnswer',(offerObj,ackFunction)=>{
         console.log(offerObj);
