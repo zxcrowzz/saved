@@ -204,13 +204,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(require('cookie-parser')());
 app.set('view engine', 'ejs');
-app.use(cookieParser());
-app.use(session({
-    secret: 'yourSecretKey', // Replace with a secure, randomly generated string in production
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: 'mongodb+srv://kingcod163:Saggytits101@cluster0.rcyom.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0' }) // Ensure this points to your MongoDB instance
-}));
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
