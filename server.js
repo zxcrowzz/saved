@@ -26,6 +26,7 @@ const https = require('https')
 const express = require('express');
 const app = express();
 const socketio = require('socket.io');
+const cookieParser = require('cookie-parser');
 const rooms = {};
 const router = express.Router();
 
@@ -204,7 +205,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(require('cookie-parser')());
 app.set('view engine', 'ejs');
-
+app.use(cookieParser());
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -268,7 +269,8 @@ app.use(flash());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { secure: false }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
