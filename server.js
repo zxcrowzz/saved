@@ -440,8 +440,9 @@ app.post('/verify', (req, res) => {
     if (code === req.session.verificationCode) {
         // On successful verification, redirect to insighta.html
         const userEmail = req.session.userEmail;
-        return res.redirect('/insighta.html');
         res.cookie('user', user.username, { maxAge: 900000000, httpOnly: true, secure: true });
+        return res.redirect('/insighta.html');
+        
         
     } else {
         res.send('Invalid verification code. Please try again.');
