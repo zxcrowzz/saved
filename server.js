@@ -484,7 +484,18 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render("register.ejs");
 });
 
+app.get('/insighta.html', checkAuthenticated, checkVerified, (req, res) => {
+     
+res.sendFile(path.join(__dirname, 'views', 'insighta.html')); 
  
+});
+
+
+app.get('/', checkAuthenticated, checkVerified, (req, res) => { 
+
+res.sendFile(path.join(__dirname, 'views', 'insighta.html')); 
+
+});
 
 app.post('/add-friend', checkAuthenticated, async (req, res) => {
     const { friendEmail } = req.body;
