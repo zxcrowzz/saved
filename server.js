@@ -117,14 +117,24 @@ io.on('connection',(socket)=>{
         answererIceCandidates: []
     });
 
+    // Print the saved offer to confirm it's added correctly
+    console.log("Offer saved:", offers.slice(-1));
+
     // Find the socket ID for the target email
     const targetSocket = connectedSockets.find(client => client.userEmail === targetEmail);
     
-    // If target socket found, send offer directly to that friend
+    // Log the result of the target socket search
     if (targetSocket) {
+        console.log("Target socket found for:", targetEmail);
+        console.log("Target socket ID:", targetSocket.socketId);
+
+        // Send offer directly to that friend
         io.to(targetSocket.socketId).emit('newOfferAwaiting', offers.slice(-1));
+    } else {
+        console.log("Target socket not found for:", targetEmail);
     }
 });
+
 
 
     socket.on('newAnswer',(offerObj,ackFunction)=>{
