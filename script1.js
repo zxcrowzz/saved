@@ -314,26 +314,24 @@ function openMessageModal(friend) {
 
 // Handle incoming video answers
 
-const call = async e=>{
-    
+const call = async (e) => {
     await fetchUserMedia();
-
-    //peerConnection is all set with our STUN servers sent over
     await createPeerConnection();
 
-    //create offer time!
-    try{
-        console.log("Creating offer...")
+    try {
+        console.log("Creating offer...");
         const offer = await peerConnection.createOffer();
         console.log(offer);
-        peerConnection.setLocalDescription(offer);
+        await peerConnection.setLocalDescription(offer);
+        
+        // Include `currentFriend` email in the emit event for targeted signaling
         didIOffer = true;
-        socket.emit('newOffer',offer); //send offer to signalingServer
-    }catch(err){
-        console.log(err)
+        socket.emit('newOffer', { offer, target: currentFriend }); // send offer to signaling server with target info
+    } catch (err) {
+        console.log(err);
     }
+};
 
-}
 
 const answerOffer = async(offerObj)=>{
     await fetchUserMedia()
