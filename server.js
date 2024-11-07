@@ -106,13 +106,13 @@ io.on('connection',(socket)=>{
         // Broadcast the message to all connected clients
         socket.broadcast.emit('message1', messageData);
     });
-  socket.on('newOffer', ({ offer, currentFriend }) => {
+  socket.on('newOffer', ({ offer, targetEmail }) => {
     // Save the offer in the offers array
     offers.push({
         offererUserName: userEmail,
         offer: offer,
         offerIceCandidates: [],
-        answererUserName: currentFriend,
+        answererUserName: targetEmail,
         answer: null,
         answererIceCandidates: []
     });
