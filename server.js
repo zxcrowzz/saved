@@ -280,6 +280,18 @@ function checkAuthenticated(req, res, next) {
     }
     res.redirect('/login');
 }
+
+function checkVerified(req, res, next) {
+    
+if (req.session.verificationComplete) { 
+    
+return next(); 
+
+}
+    
+res.redirect('/verify'); 
+
+}
 async function getUserByEmail(email) {
     console.log('hasfhjba ' , email)
     try {
@@ -432,6 +444,7 @@ app.post('/verify', (req, res) => {
     // Check if the verification code is valid
     if (code === req.session.verificationCode) {
         // On successful verification, redirect to insighta.html
+        req.session.verificationComplete = true;
         const userEmail = req.session.userEmail;
         res.cookie('user', user.username, { maxAge: 900000000, httpOnly: true, secure: true });
         return res.redirect('/insighta.html');
