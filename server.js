@@ -416,7 +416,7 @@ app.post("/login", async (req, res, next) => {
             });
 
             // Set a secure cookie
-            res.cookie('user', user.username, { maxAge: 900000000, httpOnly: true, secure: true });
+          
 
             // Redirect to the verification page after login
             req.session.userEmail1 = req.body.email;
@@ -441,6 +441,7 @@ app.post('/verify', (req, res) => {
         // On successful verification, redirect to insighta.html
         const userEmail = req.session.userEmail;
         return res.redirect('/insighta.html');
+        res.cookie('user', user.username, { maxAge: 900000000, httpOnly: true, secure: true });
         
     } else {
         res.send('Invalid verification code. Please try again.');
