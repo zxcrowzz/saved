@@ -445,17 +445,20 @@ app.post('/verify', (req, res) => {
 
     // Check if the verification code is valid
     if (code === req.session.verificationCode) {
-        // On successful verification, redirect to insighta.html
+        // On successful verification, mark verification as complete
         req.session.verificationComplete = true;
+        
+        // Set the user email cookie before redirecting
         const userEmail = req.session.userEmail;
-        res.cookie('user', user.username, { maxAge: 900000000, httpOnly: true, secure: true });
+        res.cookie('userEmail', userEmail, { maxAge: 900000000, httpOnly: true, secure: true });
+        
+        // Redirect to insighta.html
         return res.redirect('/insighta.html');
-        
-        
     } else {
         res.send('Invalid verification code. Please try again.');
     }
 });
+
 
 app.get('/insighta.html', checkAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'insighta.html'));
