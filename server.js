@@ -270,15 +270,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-     store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://kingcod163:Saggytits101@cluster0.rcyom.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', 
-        collectionName: 'sessions'
-    }),
-    cookie: {
-        maxAge: 900000000, // Adjust this as needed
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' // Enable secure cookies in production
-    }
+    
 }));
 app.use(passport.initialize());
 app.use(passport.session());
