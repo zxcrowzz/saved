@@ -326,7 +326,7 @@ const call = async (e) => {
         
         // Include `currentFriend` email in the emit event for targeted signaling
         didIOffer = true;
-        socket.emit('newOffer', { offer, target: currentFriend }); // send offer to signaling server with target info
+        socket.emit('newOffer', { offer, targetEmail: currentFriend }); // send offer to signaling server with target info
     } catch (err) {
         console.log(err);
     }
