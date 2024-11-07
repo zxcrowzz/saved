@@ -28,7 +28,7 @@ const app = express();
 const socketio = require('socket.io');
 const rooms = {};
 const router = express.Router();
-const cookieParser = require('cookie-parser');
+
 app.use(express.static(__dirname))
 const ObjectId = require('mongoose').Types.ObjectId;
 const { v4: uuidV4 } = require('uuid');
