@@ -271,7 +271,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
      store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://kingcod163:Saggytits101@cluster0.rcyom.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0, 
+        mongoUrl: 'mongodb+srv://kingcod163:Saggytits101@cluster0.rcyom.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', 
         collectionName: 'sessions'
     }),
     cookie: {
